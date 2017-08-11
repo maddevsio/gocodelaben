@@ -1,81 +1,81 @@
-# Делаем простую базу для гео данных
+# Making a simple database for geo-data
 
-Привет, гофер. Ну если ты не гофер и хочешь им стать, тоже привет.  Я предлагаю в этой кодлабе совместить две вещи. Изучить как язык Go и может быть освоить для себя пару новых вешей.
+Hello, gopher. Well, if you are not a gopher and want to become one, hello too. I propose to combine two things in this codelab: to learn Go, as a programming language, and, maybe, to learn a couple of new things for yourself.
 
-# Поднимаем окружение
-Тебе понадобится следующее:
+# The evironment
 
-1. Установленный язык [Go](https://golang.org/)
-2. Настроенный `GOPATH` :trollface: (Для 1.8 не актуально)
-3. Ты знаком с базовыми вещами в Go. [Тур по Go](https://tour.golang.org/) может хорошо в этом помочь
+You will need the following:
 
-# Цель лабораторной
+1. Installed [Go Programming Language](https://golang.org)
+2. Configured `GOPATH` :trollface: (For 1.8 not relevant)
+1. You are familiar with basic things in Go. [“Go” tour](https://tour.golang.org/) can help you with this
 
-У этой лабораторной работы две цели:
+# Purpose of laboratory work
 
-1. Получить опыт в Go
-2. Научиться понимать как примерно работают key-value хранилища(redis, memcached)
-3. Как работают некоторые индексы.
+This laboratory work has two purposes:
 
-По итогу БД будет уметь следующие вещи:
+1. Get an experience in Go
+2. Learn how does the key-value of the repository work (redis, memcached)
+3. How some indexes work.
 
-* Быстрый поиск по ключу;
-* Поиск мест, рядом с вами;
-* HTTP интерфейс к БД;
-* LRU/expire механизмы для хранения данных;
+Eventually, the database will be able to do the following things:
 
-По Go получите следующие знания:
+* Quick search by the key;
+* Search for places near you;
+* HTTP interface to the database;
+* LRU / expire mechanisms for data storage;
 
-* Как работает concurrency;
-* Поработаете с базовыми синтаксическими вещами;
-* Опыт тестирования в go;
-* Базовые вещи с Makefile;
+By Go you will get the following knowledge:
 
-# Содержание
+* How does concurrency work;
+* Work with basic syntactic things;
+* Test experience in go;
+* Basic things with Makefile;
+
+# Table of contents
 
 Этот воркшоп разделен на несколько частей.
 
-* [Шаг 0. Постановка задачи](step00/README.md)
-* [Шаг 1. Что нужно знать о тестировании и написании тестов в Go.](step01/README.md)
-* [Шаг 2. Hello world](step02/README.md)
-* [Шаг 3. Проектируем HTTP API](step03/README.md)
-* [Шаг 4. Делаем HTTP API](step04/README.md)
-* [Шаг 5. Разбиваем main.go на несколько пакетов](step05/README.md)
-* [Шаг 6. Makefile, конфигурация и флаги](step06/README.md)
-* [Шаг 7. Добавляем хранилище для данных и ищем ближайших водителей наивным путем](step07/README.md)
-* [Шаг 8. Пишем первый бенчмарк и зачем он](step08/README.md)
-* [Шаг 9. Что такое R-tree и почему оно эффективнее наивной реализации](step09/README.md)
-* [Шаг 10. Имплементируем LRU (часть 1)](step10/README.md)
-* [Шаг 11. Имплементируем LRU (часть 2)](step11/README.md)
-* [Шаг 12. Делаем хранилище консистентным. Внедряем LRU](step12/README.md)
-* [Шаг 13. Внедряем хранилище в API](step13/README.md)
-* [Шаг 14. Вы прошли курс. Поздравляю](step14/README.md)
+* [Step 0. Setting of the problem](step00/README.md)
+* [Step 1. What you need to know about testing and writing tests in Go.](step01/README.md)
+* [Step 2. Hello world](step02/README.md)
+* [Step 3: Design the HTTP API](step03/README.md)
+* [Step 4. Make the HTTP API](step04/README.md)
+* [Step 5. Split main.go into several packages](step05/README.md)
+* [Step 6. Makefile, configuration and flags](step06/README.md)
+* [Step 7. Add a data warehouse and look for the nearest drivers in a naive way](step07/README.md)
+* [Step 8. Writing the first benchmark: why do we need it](step08/README.md)
+* [Step 9. What is R-tree and why is it more effective than naive implementation?](step09/README.md)
+* [Step 10. Implement the LRU (Part 1)](step10/README.md)
+* [Step 11. Implement the LRU (Part 2)](step11/README.md)
+* [Step 12: Making the repository consistent. Introducing the LRU](step12/README.md)
+* [Step 13: Implement the repository in the API](step13/README.md)
+* [Step 14. You have completed the course. Congratulations](step14/README.md)
 
-## Комьюнити и ресурсы
-
-Есть несколько мест, где вы можете найти информацию про Go:
+# Community and resources
+There are several places where you can find information about Go:
 
 - [golang.org](https://golang.org)
-- [godoc.org](https://godoc.org) тут вы можете найти документацию по любому пакету
-- [Блог языка Go](https://blog.golang.org)
+- [godoc.org](https://godoc.org) here you can find the documentation for any package
+- [Go language blog](https://blog.golang.org)
 
-Одно из самых замечательных качеств языка Go - это его сообщество.
-### Сообщества и каналы в телеграм
+One of the most remarkable qualities of Go is its community.
+### Communities and channels in Telegram
 
-1. [@bishkekgophers](https://telegram.me/bishkekgophers) - Гоферы Бишкека
-2. [@devkg](https://telegram.me/devkg) - Программисты Кыргызстана
-3. [@maddevsio](https://telegram.me/maddevsio) - канал нашей компании, где мы делимся всякими интересными штуками. Очень часто говорим про Go
+1. [@bishkekgophers](https://telegram.me/bishkekgophers) - Bishkek Gophers
+2. [@devkg](https://telegram.me/devkg) - Developers of Kyrgyzstan
+3. [@maddevsio](https://telegram.me/maddevsio) - The channel of our company, where we share all kinds of interesting things. We often speak about Go
 
-### Сообщества в Slack
+### Communities in Slack
 
-1. [golang-ru.slack.com](golang-ru.slack.com) - Рускоязычное сообщество гоферов
-2. [gophers.slack.com](gophers.slack.com) - Англоязычное сообщество гоферов. Инвайт получить тут [https://invite.slack.golangbridge.org/](https://invite.slack.golangbridge.org/)
+1. [golang-ru.slack.com](golang-ru.slack.com) - The Russian-speaking community of gophers
+2. [gophers.slack.com](gophers.slack.com) - The English-speaking community of gophers. Invitation to get here [https://invite.slack.golangbridge.org/](https://invite.slack.golangbridge.org/)
 
 
 ### Подкасты
 
-1. [GolangShow](https://golangshow.com) - Русскоязычный подкаст о языке Go
-2. [Gotime](http://gotime.fm) - Англоязычный подкаст о языке Go
+1. [GolangShow](https://golangshow.com) - Russian-language podcast about Go-language
+2. [Gotime](http://gotime.fm) - English-language podcast about Go-language
 
 ### Остальное
 - [Go Форум](https://forum.golangbridge.org/)
@@ -84,6 +84,6 @@
 
 ### Благодарности
 
-1. Francesc Campoy за его воркшоп [Building Web Applications with Go](https://github.com/campoy/go-web-workshop/)
-2. Ashley McNamara за картинку в 10м шаге. Вы можете посмотреть и другие работы в [репо](https://github.com/ashleymcnamara/gophers)
-3. [Елене Граховац](https://twitter.com/webdeva) за ревью и фидбек
+1. Francesc Campoy for his workshop [Building Web Applications with Go](https://github.com/campoy/go-web-workshop/)
+2. Ashley McNamara for the picture in the 10th step. You can see other works in [repo](https://github.com/ashleymcnamara/gophers)
+3. [Elena Grahovac](https://twitter.com/webdeva) for the review and feedback
