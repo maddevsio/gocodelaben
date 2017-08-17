@@ -1,8 +1,8 @@
-## Шаг 5. Дробим на мелкие части
-Вот когда у нас уже есть какой-то код, то можно вынести все из main.go. Сейчас первый кандидат - весь код, который относится к API.
-Давайте его и вынесем.
+## Step 5. Fracture into small parts
 
-У нас есть следующий код
+That's when we already have some code, we can endure everything from main.go. Now the first candidate is all the code that belongs to the API. Let's take it out.
+
+We have the following code
 ```Go
 package main
 
@@ -125,19 +125,20 @@ func nearestDrivers(c echo.Context) error {
 	})
 }
 ```
-К нему не хватает также и тестов. Плюс к этому, желательно как-то конфигурировать порт, на котором будет стартовать наш веб-сервер.
+There are also not enough tests for it. Plus, it is desirable to configure the port somehow, on which our web-server will start.
 
-Создадим папку `api` и переместим весь код, который относится к API в `api/api.go`. Но для начала, нам нужна будет структура, которая понадобиться нам в будущем. Например для того, чтобы подключить в API нашу БД, которую мы сделаем позже. А сейчас там будем хранить копию echo, и адрес на котором будет слушать приложение
+Let us create an `api` folder and move all the code that applies to the API into `api/api.go`. But first, we need a structure that we will use in the future. For example, in order to connect to the API our database, which we will do later. But right now we will store a copy of echo here, and the address of listened application
 ```Go
 type API struct {
   echo *echo.Echo
   bindAddr string
 }
 ```
-На первых парах нам хватит такой простой структуры. При переносе нужно будет делать это методами класса. Ну и сделать метод для создания новой копии API.
+In first, this simple structure is enough for us. We will need to move this using class methods. Well, and make a method for creating a new copy of the API.
 
-## New или создаем API
-В этом методе, мы инициализируем все наши зависимости и настраиваем роуты.
+## New or create an API
+
+In this method, we initialize all our dependencies and configure routs.
 ```Go
 func New(bindAddr string) *API {
 	a := &API{}
@@ -153,15 +154,16 @@ func New(bindAddr string) *API {
 ```
 
 ## Start
-Этот метод нужен будет для того, чтобы стартовать наше приложение
+
+This method will be needed in order to start our application
 ```Go
 func (a *API) Start() error {
 	return a.echo.Start(a.bindAddr)
 }
 ```
+## Other methods
 
-## Остальные методы
-Все остальные методы нужно привести к виду `func (a *API) addDriver(c echo.Context) error`
+All other methods must be reduced to the form `func (a *API) addDriver(c echo.Context) error`
 
 ```Go
 func (a *API) addDriver(c echo.Context) error {
@@ -238,7 +240,7 @@ func (a *API) nearestDrivers(c echo.Context) error {
 }
 ```
 
-А все наши модели перенесем в `api/models.go`
+And we'll move all our models to `api/models.go`
 ```Go
 package api
 
@@ -273,7 +275,7 @@ type (
 
 ```
 
-в main.go у нас остался только этот код
+In main.go we have only this code
 ```Go
 func main() {
 	e := echo.New()
@@ -285,13 +287,15 @@ func main() {
 	log.Fatal(e.Start(":9111"))
 }
 ```
-Который нужно модифицировать примерно в это
-``` 
+Which have to be modified to the kind of this
+```
 func main() {
 	a := api.New(":9111")
 	log.Fatal(a.Start())
 }
 ```
 
-## Поздравляю! 
-Мы раздробили нашу програму на несколько частей. В [следующей](../step06/README.md) части мы поработаем с флагами, конфигурацией приложения и Makefile
+## Congratulations!
+
+We split our program into several parts. We'll work with the flags, the application configuration, and the Makefile in the [next](../step06/README.md) part.
+

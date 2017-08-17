@@ -1,6 +1,6 @@
-# Шаг 2. Hello world
+## Step 2. Hello world
 
-Давайте напишем что-нибудь работающее. Например простое Hello world приложение. Откроем `main.go` в редакторе и напишем код.
+Let's write something working. For example, a simple “Hello world” application. Open `main.go` in the editor and write the code.
 
 ```Go
 package main
@@ -12,9 +12,8 @@ func main() {
 }
 ```
 
-Теперь проект нужно собрать и запустить.
-Есть несколько вариантов запустить проект.
-``` 
+Now the project needs to be assembled and launched. There are several options for starting a project.
+```
 $ go run main.go
 Hello world
 ```
@@ -25,7 +24,7 @@ $ ./helloworld
 Hello world
 ```
 
-Учитывая то, что мы пишем веб приложение, давайте сделаем hello world в вебе.
+Considering that we are writing a web application, let's make “hello world” on the web.
 ```Go
 package main
 
@@ -43,10 +42,13 @@ func main() {
         log.Fatal(http.ListenAndServe(":9911", nil))
 }
 ```
-В этом приложении мы сделали простой вебсервер, который при запуске будет слушать 9911 порт и на любой урл будет возвращать нам `Hello world`
+In this application we made a simple web server that will listen to the 9911 port at start and will return us the “`Hello world`” on every URL
 
-Запустите и проверьте его работу сами
+Run and test it for yourself
 
-## Поздравляю!
+## Congratulations!
 
-У вас получилось что-то работающее. Продолжение в [следующей](../step03/README.md) части
+You got something working. Continuation in the [next](../step03/README.md) part
+
+
+

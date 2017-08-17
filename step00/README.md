@@ -1,10 +1,11 @@
-# Шаг 0. Постановка задачи и предварительные шаги
+# Step 0. Setting of the problem and preliminary steps
 
-## Задача
-Я хочу, чтобы вы с нами решили задачу, которая описана в этом [посте](https://blog.maddevs.io/how-we-built-a-backend-system-for-uber-like-map-with-animated-cars-on-it-using-go-29d5dcd517a#.po7uwiqqk) в нашем блоге.
-Нам нужна база данных для того, чтобы хранить треки водителей. При этом нужно хранить несколько треков по каждому водителю
 
-### Формат данных
+### A task
+
+I want you to solve the problem with us, which is described in this [post](https://blog.maddevs.io/how-we-built-a-backend-system-for-uber-like-map-with-animated-cars-on-it-using-go-29d5dcd517a#.po7uwiqqk) in our blog. We need a database in order to store the tracks of drivers. At the same time, you need to store several tracks for each driver
+
+### Data format
 ```Go
 type (
     Location struct {
@@ -19,33 +20,33 @@ type (
     }
 )
 ```
+### Storage Requirements
 
-### Требования к хранению
+1. Data should be added without duplication.
+2. Need to store the last N points for each driver
 
-1. Данные должны добавляться без дублирования.
-2. По каждому водителю нужно хранить N последних точек
+Adding data will be via HTTP API
 
-Добавления данных будет через HTTP API
+### HTTP API Requirements
 
-### Требования к HTTP API
+1. Add the data to the repository
+2. Get information on the driver
+3. Get the nearest drivers by location
 
-1. Добавить данные в хралищие
-2. Получить информацию по водителю
-3. Получить ближайших водителей по местоположению
+### Analysis of the problem
 
-## Разбор задачи
+We will solve the problem evolutionarily. In the process of implementation we will start with simple and primitive solutions that are not always effective in speed, but we will introduce certain primitives during the course, explaining them. The process will be something like this:
 
-Решать задачу будем эволюционно. В процессе реализации мы начнем с простых и примитивных решений, которые не всегда эффективны по скорости, но в ходе решения задачи будем вводить те или иные примитивы, объясняя их. Процесс будет примерно такой:
+1. We solve the problem by a simple and blunt method
+2. We think how it can be optimized
+3. We study a new data structure and understand it
+4. We design a solution with a new structure
+4. Doing it
+5. Writing tests
 
-1. Решаем задачу простым и тупым методом
-2. Думаем как это можно оптимизировать
-3. Изучаем новую структуру данных и понимаем ее
-4. Проектируем решение с новой структурой
-5. Делаем ее
-6. Пишем тесты
+### How to work with the project
 
-## Как работать с проектом
-Проект нужно склонировать себе.
+You need to clone the project for yourself.
 
 ``` 
 cd $GOPATH
@@ -53,11 +54,13 @@ mkdir -p src/github.com/maddevsio
 cd src/github.com/maddevsio
 git clone git@github.com:maddevsio/gocodelabru.git
 cd gocodelab
-```
 
-## О структуре проекта
+``` 
 
-Кодлаба раздлена на несколько шагов. Каждый последующий шаг может содержать себе пример того, что должно у вас получится после выполнения предыдущего. Это своеобразные чекпоинты, чтобы проверять все ли правильно ли вы делаете или нет.
+## On the structure of the project
 
-## Поздравляю!
-Мы узнали какую задачу будем решать и как ее решать. Приступим к реализации задачи в [следующем шаге](../step01/README.md)
+Codelab is divided by several steps. Each subsequent step can contain an example of what you should get after the previous one. These are kind of checkpoints to check if everything is done correctly or not.
+
+## Congratulations!
+
+We have learned what task we will solve and how to solve it. Let's start the task in the [next step](../step01/README.md)

@@ -1,12 +1,11 @@
-## Шаг 7. Строим сторадж
+## Step 7. Building the Storage
 
-В этом шаге мы будем делать минимальное хранилище данных и решать проблему выдачи ближайшего водителя. При этом нам нужно
+In this step we will do a minimal data store and solve the problem of issuing the nearest driver. In this case, we need
 
-1. Придумать начальную архитектуру
-2. Сделать его консистентным
+1. Come up with an initial architecture
+2. Make it consistent
 
-
-Напомню, нам нужно хранить следующие данные
+Let me remind you that we need to store the following data
 ```Go
 type (
   Location struct {
@@ -19,24 +18,23 @@ type (
   }
 )
 ```
-Так и запишем их в `storage/storage.go`
+So let us write them in `storage/storage.go`
 
-Напомню, что нам нужно реализовать следующие фичи:
+Also, let me remind you that we need to implement the following features:
 
-1. New() - для инциализации стораджа
-2. Set(key, value) - для добавления или обновления элемента
-3. Delete(key) - для удаления
-4. Nearest(lat, lon) - для получения блищайших элементов
-5. Get(key) - для получения водителя
+1. New() - to initialize the story
+2. Set(key, value) - to add or update an element
+3. Delete(key) - to delete
+4. Nearest(lat, lon) - to get the nearest elements
+5. Get(key) - for get the driver
 
-Сделаем структуру для хранения водителей
+We make a structure for storing drivers
 ```Go
 type DriverStorage struct {
   drivers map[int]*Driver
 }
 ```
-
-Напишем методы для нашего хранилища. 
+Let's write the methods for our repository.
 ```Go
 package storage
 
@@ -86,7 +84,7 @@ func (d *DriverStorage) Nearest(lat, lon float64) ([]*Driver, error) {
 }
 ```
 
-Реализуем каждый из методов
+We implement each of the methods
 
 ## Set
 
@@ -123,12 +121,11 @@ func (d *DriverStorage) Get(key int) (*Driver, error) {
 	return driver, nil
 }
 ```
-Но нужны еще также и тесты чтобы убедиться, что наш код работает.
-Для того, чтобы писать меньше кода, мы поставим пакет assert
+But we also need tests to make sure that our code works. In order to write less code, we will supply the assert package
 ```Go
 go get github.com/stretchr/testify/assert
 ```
-После этого напишем тест
+We will write a test after that
 ```Go
 func TestStorage(t *testing.T) {
 	s := New()
@@ -150,17 +147,15 @@ func TestStorage(t *testing.T) {
 }
 ```
 
-### Реализуем Nearest метод
-В целом простая логика работы. Но нужно реализовать еще работу Nearest метода.
-Как вариант можно сделать следующий алгоритм работы.
+## Implementing the Nearest method
 
-1. Мы проходим по всем водителям
-2. Вычисляем расстояние до водителя
-3. Если расстояние меньше заданого радиуса, то добавляем в массив результатов.
+In general, there is a simple logic of the work, but we need to implement the work of the Nearest method. As an option, you can make the following algorithm work.
 
+1. We pass by all drivers
+2. Calculate the distance to the driver
+3. If the distance is less than the specified radius, then we add the results to the array.
 
-Предлагаю этот метод реализовать вам самим.
-Скелет метода
+I suggest you implement this method by yourself. Skeleton of the method
 
 ```Go
 // Nearest returns nearest drivers by locaion
@@ -168,7 +163,7 @@ func (d *DriverStorage) Nearest(radius, lat, lon float64) ([]*Driver, error) {
 	return nil, nil
 }
 ```
-Как вычислить расстояние между двумя точками. Дистанция возвращается в метрах.
+How to calculate the distance between two points. The distance is returned in meters.
 
 ```Go
 // haversin(θ) function
@@ -199,7 +194,7 @@ func Distance(lat1, lon1, lat2, lon2 float64) float64 {
 }
 ```
 
-Тест для метода
+The test of the method
 
 ```Go
 func TestNearest(t *testing.T) {
@@ -223,6 +218,7 @@ func TestNearest(t *testing.T) {
 }
 ```
 
+## Congratulations!
 
-## Поздравляю! 
-Вы сами реализовали метод, который ищет ближайших водителей. В [следующем](../step08/README.md) уроке мы будем разбираться, насколько наш метод эффективный и что можно сделать с этим.
+You implemented a method that looks for the nearest drivers by yourself. In the [next](../step08/README.md) lesson, we will understand how our method is effective and what can be done about it.
+

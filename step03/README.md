@@ -1,15 +1,16 @@
-# Шаг 3. Проектируем HTTP API
-Нам нужны следующие HTTP API методы, исходя из описания задачи в задачи [Шаге 0](../step00/README.md)
-## API Методы
+# Step 3: Design the HTTP API
 
-1. POST /driver/ - добавить водителя
-2. GET /driver/:id - получить информацию о водителе
-3. DELETE /driver/:id - удалить водителя
-4. GET /driver/:lat/:lon/nearest - получить ближайших водителей.
+We need the following HTTP API methods, based on the task description in the task [Step 0](../step00/README.md)
+## API Methods
 
-Для построения API мы будем использовать фреймворк [echo](http://echo.labstack.com)
+1. POST / driver / - add driver
+2. GET / driver /: id - get information about the driver
+3. DELETE / driver /: id - remove the driver
+4. GET / driver /: lat /: lon / nearest - get the nearest drivers.
 
-Нам нужны будут пустые методы для этого, которые мы имплементируем позже.
+We will use the [echo](http://echo.labstack.com) framework to build the API
+
+We will need empty methods for this, which we will implement later.
 
 ```
 func addDriver(c echo.Context) error {
@@ -26,7 +27,7 @@ func nearestDrivers(c echo.Context) error {
 }
 ```
 
-Получается примерно такой код.
+It turns out to this kind of code.
 ```
 package main
 
@@ -55,9 +56,9 @@ func nearestDrivers(c echo.Context) error {
 	return nil
 }
 ```
+### Requests and answers
 
-### Запросы и ответы
-Нам понадобятся следующие структуры для получения запросов
+We need the following structures to receive requests
 ```Go
 type (
     Location struct {
@@ -71,7 +72,7 @@ type (
     }
 )
 ```
-Для возврата ответов используем следующее
+We use the following to return the answers
 ```Go
 type (
 	// Структура для возврата ответа по умолчанию
@@ -94,5 +95,7 @@ type (
 )
 ```
 
-## Поздравляю!
-У нас есть основные структуры для получения/отправления данных и методы "заглушки". В [следующей](../step04/README.md) части мы реализуем их.
+## Congratulations!
+
+We have the basic structures for receiving/sending data and the "stub" methods. We implement them in the [next](../step04/README.md) part
+

@@ -1,11 +1,10 @@
-# Шаг 1. Что нужно знать о тестировании и написании тестов в Go.
+# Step 1. What you need to know about testing and writing tests in Go.
 
-Тестирование нужно для слабаков, которые не могут написать с первой попытки работающий код. :trollface:
-Поэтому в мире существует много инстументов для того, чтобы писать тесты. Go не исключение. В Go есть пакет `testing` функционала которого хватит всем.
+Testing is necessary for weaklings who can not write working code at the first attempt. :trollface: Therefore, there are many tools for writing tests in the world. Go is not an exception. Go has a `testing` package, whose functionality is enough for everyone.
 
-В Go тестовые файлы обычно лежат в той же самой папке, что и обычные файлы. Их можно узнать по присутсвию `_test.go`  в имени файла. При этом компилятор поймет, что файлы `_test.go` не надо включать в билд, о при запуске инструмета `go test` эти файлы как раз таки и будут использоваться
+The test files in GO are usually in the same folder as regular files. They can be recognized by the presence of `_test.go` in the file name. The compiler will understand that the `_test.go` files do not need to be included in the build, but when you run the `go test` tool, these files will be used just like that
 
-Например посмотрим, как тестируют пакет `math` Go.
+For example, let's see how the `math` Go package is tested.
 
 ```Go
 package math
@@ -21,7 +20,7 @@ func TestAverage(t *testing.T) {
 }
 ```
 
-Запуск тестов происходит командой `go test`
+Launching the tests is going by the command `Gogo test`
 
 ```
 $ cd /usr/local/go/src/math
@@ -29,8 +28,8 @@ $ go test
 PASS
 ok  	math	0.010s
 ```
-Если хотите
-А еще Go сообщество пропогандирует вместо копипаста в тестах использовать так называемые table tests. В этом случае у нас есть пары исходного значения и результата. А тесты прогоняем в цикле
+
+If you want.  The Go community also promotes to use the so-called table tests instead of copy-paste in the tests. In this case, we have pairs of initial value and result. And we run the tests in a loop
 
 ```Go
 package math
@@ -59,19 +58,19 @@ func TestAverage(t *testing.T) {
       )
     }
   }
-}
 ```
-[Документация](http://godoc.org/testing) к пакету `testing`
-
-А если вы запаритесь писать постоянно 
+[Documentation](http://godoc.org/testing) for the `testing` package
 ```Go
+And if you tired of writing constantly
+
 if smth != anoher {
    t.Error("Error")
 }
 ```
-То есть пакет [testify/assert](https://godoc.org/github.com/stretchr/testify/assert)
 
+That is, the [testify/assert](https://godoc.org/github.com/stretchr/testify/assert)
+ package
 
-## Поздравляю!
+## Congratulations!
+You now know how to test in Go and by which tools. We will write tests in our project. There is no sense without them. Continuation in the [next](../step02/README.md)part
 
-Вы теперь знаете как тестировать и чем тестировать в Go. В нашем проекте мы будем писать тесты. Без них никуда. Продолжение в [следующей](../step02/README.md) части

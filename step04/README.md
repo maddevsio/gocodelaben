@@ -1,4 +1,4 @@
-# Шаг 4. Делаем HTTP API
+# Step 4. Make the HTTP API
 
 ## addDriver
 ```Go
@@ -16,7 +16,7 @@ func addDriver(c echo.Context) error {
 	})
 }
 ```
-Как вы можете заметить тут, есть не понятный метод `c.Bind`. Этот метод связывает данные, которые у нас поступают в структуру. Передавать обязательно нужно указатель на стуктуру.
+As you can see here, there is an incomprehensible method `c.Bind`. This method links the data, which we receive to the structure. We always need to pass a pointer to the structure.
 
 ## getDriver
 ```Go
@@ -35,7 +35,6 @@ func getDriver(c echo.Context) error {
 		Driver:  id,
 	})
 }
-
 ```
 
 ## deleteDriver
@@ -90,5 +89,9 @@ func nearestDrivers(c echo.Context) error {
 
 ```
 
-## Поздравляю!
-У нас есть реализованные методы "заглушки". Учитывая то, что у нас сейчас нет хранения, мы начнем реализовывать в [следующих](../step05/README.md) шагах.
+## Congratulations!
+
+We have implemented the "stub" methods. Considering that we don't have storage currently, we will begin to implement in the [next](../step05/README.md) steps.
+
+
+
