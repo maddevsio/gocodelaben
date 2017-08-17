@@ -1,6 +1,6 @@
-# Шаг 6. Собираем все вместе и немного о Makefile
-Пришла пора для того, чтобы конфигурировать наше приложение
-Для конфигурации мы воспользуемся пакетом [flag](https://godoc.org/flag)
+# Step 6. Putting it all together and a little bit about Makefile
+
+It's time to configure our application. For configuration we will use the flag package [flag](https://godoc.org/flag)
 ```Go
 import "flag"
 
@@ -11,15 +11,14 @@ func main() {
 	log.Fatal(a.Start())
 }
 ```
-В GO есть несколько правил хорошего тона:
+In GO there are several rules of good taste:
 
-1. В твоем пакете должны быть тесты
-2. Твои библиотеки не должны писать логи
-3. Сообщения об ошибках написаны в lowercase
-4. Твой код должен быть отформатирован
+1. There should be tests in your package
+2. Your libraries should not write logs
+3. Error messages should be written in lowercase
+4. Your code must be formatted
 
-Для того, чтобы код всегда был отформатирован, помимо триггеров на сохранение, можно запустить команду `go fmt ./...` и он отформатирует все файлы.
-Для примера поделюсь с вами простым `Makefile` 
+To keep the code always formatted, in addition to saving triggers, you can run `go fmt ./...` and it will format all files. For an example I will share with you a simple `Makefile` 
 ```make
 TARGET=codelab
 
@@ -43,6 +42,7 @@ run:
 	go run main.go
 ```
 
+## Congratulations!
 
-## Поздравляю!
-Выполнив make вы отформатируете весь код и пересоберете проект, а `make run` запустит вам проект. В [следующем](../step07/README.md) шаге мы будем писать тесты на наше API и узнаем о coverage
+You will format all the code by making “make” and rebuild the project, and make run will start the project for you. In the [next](../step07/README.md) step we will write tests for our API and learn about coverage
+
