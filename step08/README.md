@@ -1,7 +1,6 @@
-# Шаг 8. Пишем первый бенчмарк и зачем он
+# Step 8. Writing the first benchmark: why do we need it
 
-Как вы можете догадаться, метод, который вы реализовали не совсем эффективный.
-А для того, чтобы убедиться в этом, напишем бенчмарк в `storage/storage_test.go`
+As you can guess, the method you implemented is not quite effective. And in order to make sure of this, we'll write a benchmark in storage/storage_test.go
 ```Go
 func BenchmarkNearest(b *testing.B) {
 	s := New()
@@ -19,31 +18,31 @@ func BenchmarkNearest(b *testing.B) {
 	}
 }
 ```
-И проверим работу на 100, 1000, 10000 элементах в хранилище.
+We'll check the work on 100, 1000, 10,000 elements in the repository
 ```Go
 cd storage
 go test -bench=.
 ```
-Для 100 элементов
+For 100 items
 ```
 BenchmarkNearest-4         50000             24002 ns/op
 PASS
 ok      github.com/maddevsio/gocodelabru/step09/storage 1.460s
 ```
-Для 1000 элементов
+For 1000 items
 ```Go
 BenchmarkNearest-4          5000            272552 ns/op
 PASS
 ok      github.com/maddevsio/gocodelabru/step09/storage 1.402s
 ```
-Для 10000 элементов
+For 10000 items
 ```Go
 BenchmarkNearest-4           500           2799431 ns/op
 PASS
 ok      github.com/maddevsio/gocodelabru/step09/storage 1.714s
 ```
 
-Можно сделать вывод, что чем больше элеменов в хранилище, тем дольше мы ищем ближайших водителей.
+We can make a conclusion that the more elements in the storage, the longer we are looking for the nearest drivers.
 
-## Поздравляю!
-Вы теперь знаете как писать бенчмарки В [следующем](../step09/README.md) шаге мы будем оптимизировать работу метода выдачи ближайших водителей
+## Congratulations!
+You now know how to write benchmarks. In the [next](../step09/README.md) step we will optimize the work of the method of issuing the nearest drivers
