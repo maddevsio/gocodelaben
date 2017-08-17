@@ -1,5 +1,6 @@
-# Шаг 13. Внедряем хранилище в API
-Получается у нас такая структура. `sync.WaitGroup` нам нужна для того, чтобы синхронизировать несколько горутин, которые мы запустим позднее.
+# Step 13: Implement the repository in the API
+We got this kind of structure right now. We need `sync.WaitGroup` in order to synchronize several goroutines, which we will launch later.
+
 
 ```Go
 type API struct {
@@ -10,7 +11,7 @@ type API struct {
 }
 ```
 
-## Новый New
+## The new New
 ```Go
 func New(bindAddr string, lruSize int) *API {
 	a := &API{}
@@ -26,7 +27,7 @@ func New(bindAddr string, lruSize int) *API {
 ```
 
 ## WaitStop
-В качестве обертки над приватной вейтгруппой
+As a wrapper over a private waitgroup
 ```Go
 func (a *API) WaitStop() {
 	a.waitGroup.Wait()
@@ -42,10 +43,11 @@ func (a *API) removeExpired() {
 	}
 }
 ```
-Этот метод - заблокирует наш основной поток. Вы можете попробовать его вызвать и после этого запустить например веб-сервер. Веб сервер в этом случае у нас не запусится. Вот тут к нам на выручку и приходит `sync.WaitGroup`
+This method will block our main thread. You can try calling it and launch a web-server, for example. In this case, the web-server will not start. Here, `sync.WaitGroup` also comes to us on a gain
 
 ## Start
-В этом методе мы просто запустим веб-сервер и удаление протухших водителей в двух горутинах. Заблокируем основной поток с помощью метода `WaitStop()`
+In this method, we simply launch the web-server and remove the rotten drivers in two goroutines. We lock the main thread using the `WaitStop()` method
+
 
 ```Go
 func (a *API) Start() {
@@ -174,7 +176,8 @@ func (a *API) nearestDrivers(c echo.Context) error {
 }
 
 ```
-Ну, правда на этом этапе. чтобы не плодить не нужные структуры, поменяем в `storage/storage.go` файлы, добавив `json` теги
+Well, at this stage in order not to produce unnecessary structures, we will change in `storage/storage.go` files, adding `json` tags
+
 ```Go
 	Location struct {
 		Lat float64 `json:"lat"`
@@ -188,7 +191,7 @@ func (a *API) nearestDrivers(c echo.Context) error {
 	}
 
 ```
-Ну и в `main.go` нужно добавить следующее
+Well, in `main.go` you need to add the following
 ```Go
 func main() {
 	bindAddr := flag.String("bind_addr", ":8080", "Set bind address")
@@ -199,5 +202,5 @@ func main() {
 	a.WaitStop()
 }
 ```
-## Поздравляю!
-Вы все сделали Переходите к  [следующему](../step14/README.md) шагу
+## Congratulations!
+You're all done. Go to the [next](../step14/README.md) step

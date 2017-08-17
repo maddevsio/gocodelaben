@@ -1,16 +1,16 @@
-## Шаг 10. Имплементируем LRU (часть 1)
-Для того. чтобы сделать LRU хранилище, сначала нужно рассказать что это такое.
+## Step 10. Implement the LRU (Part 1)
+For making an LRU repository, first I have to tell what it is.
 
-**LRU (least recently used)** — это алгоритм кеширования данных, при котором вытесняются значения, которые дольше всего не запрашивались. Этот механизм удобен тем, что мы например инициализируем кеш на 20 элементов. И как только мы стараемся добавить 21й, то самый долго неиспользуемый элемент удалится.
+**LRU (least recently used)** — is a data caching algorithm that forces out values ​​that have not been requested for the longest. This mechanism is convenient because we, for example, initialize the cache for 20 elements. And as soon as we try to add the 21st, the longest unused item will be deleted.
 
-Этот механизм удобен еще тем, что эту логику мы реализуем только в одном месте.
-Его будем делать в пакете `storage/lru` создайте новую папку, создайте два файла `storage/lru/lru.go` и `storage/lru/lru_test.go` с контентом `package lru`
 
-## Структуры данных 
+This mechanism is convenient because we implement the logic only in one place. We'll create it in the `storage/lru` package, create a new folder, create two files: `storage/lru/lru.go` and `storage/lru/lru_test.go` with a `package lru` content
 
-Нам нужно подумать, как же реализовывать кеш. Нам нужен какой-то список из элементов, в котором мы бы могли двигать элементы как вверх стопки, так и забирать последний. Плюс ко всему нам нужна возможность удалять значения из этого списка. Кажется, что [container/list](https://golang.org/pkg/container/list/) нам подойдет.
 
-Получается кеш мы сможем описать следующим образом
+## Data Structures
+We need to think about how to implement the cache. We need some list of elements in which we could move the elements both upside down and take the last one. Plus, we need to be able to delete values ​​from this list. It seems that [container/list](https://golang.org/pkg/container/list/) suits us.
+
+It turns out that we can describe the cache as follows
 
 ```Go
 type LRU struct {
@@ -19,7 +19,7 @@ type LRU struct {
   items map[interface{}]*list.Element
 }
 ```
-Также нам нужна структура для того, чтобы хранить данные в списке и карте.
+We also need a structure to store data in the list and on the map.
 ```Go
 // entry used to store value in evictList
 type entry struct {
@@ -28,7 +28,7 @@ type entry struct {
 }
 ```
 
-в файле `lru/lru.go` следующий код
+In the file `lru/lru.go` the following code
 ```Go
 package lru
 
@@ -52,8 +52,7 @@ type (
 ```
 
 ## New
-Для того, чтобы создать кеш нам нужно передать его размер в параметрах и проинициализировать все структуры хранения.
-Получается следующее
+
 ```Go
 // New initialized a new LRU with fixed size
 func New(size int) (*LRU, error) {
@@ -85,9 +84,9 @@ func (l *LRU) Add(key, value interface{}) bool {
 }
 
 ```
-У нас Add делает две вещи. Добавляет и обновляет значение по ключу. При этом с помощью API `container/list` он управляет положением элемента в списке. Не хватает лишь удаления элемента, если у нас элементов в нашем кеше больше чем его размер
+Add does two things for us: adds and updates the value by key. By using the `container/list` API, it controls the position of the item in the list. It's not enough just to delete an item if we have more items in our cache more than its size.
 
-## Удаление наименее используемого элемента
+## Removing the least-used item
 ```Go
 func (l *LRU) removeOldest() {
 	ent := l.evictList.Back()
@@ -101,9 +100,9 @@ func (l *LRU) removeElement(e *list.Element) {
 	delete(l.items, kv.key)
 }
 ```
-По закладываемой логике, нам нужно удалить всего-лишь последний элемент из списка. Удалять нужно будет его и из нашего списка и из карты.
+According to the establishing logic, we need to remove only the last element from the list. You will need to delete it from both our list and the map.
 
-Вернемся к добавлению элемента и внедрим удаление самого старого элемента, если мы превышаем размер хранилища. Получится следующий код
+Let's return to adding an element and insert the oldest element if we exceed the size of the repository. We get the following code
 
 ```Go
 // Add adds a value to the cache. Return true if eviction occured
@@ -123,7 +122,7 @@ func (l *LRU) Add(key, value interface{}) bool {
 	return evict
 }
 ```
-Напишем на него тест в `lru/lru_test.go`
+We will write a test on it in `lru/lru_test.go`
 ```Go
 // Test that Add returns true/false if an eviction occurred
 func TestLRU_Add(t *testing.T) {
@@ -143,7 +142,7 @@ func TestLRU_Add(t *testing.T) {
 
 ```
 ## Len
-С Len() все просто. Нам нужно вернуть только длину списка, чтобы узнать сколько элементов у нас сейчас в кеше
+Everything is simple with Len (). We need to return only the length of the list to find out, how many elements we have now in the cache
 ```Go
 // Len returns the number of items in cache
 func (l *LRU) Len() int {
@@ -151,6 +150,6 @@ func (l *LRU) Len() int {
 }
 ```
 
-# Поздравляю!
+# Congratulations!
 
-Вы реализовали создание, добавление и удаление самого старого элемента из кеша и написали тест на добавление элемента. Мы продолжим работу в [следующей части](../step11/README.md)
+You realized the creation, addition and removal of the oldest element from the cache and wrote a test to add an element. We will continue to work in the [next part](../step11/README.md)

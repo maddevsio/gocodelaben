@@ -1,21 +1,22 @@
-# Шаг 9. Оптимизируем Nearest. Используем R-tree
-В прошлом шаге мы написали свой метод, который возвращает ближайщих водителей и он работает медлено. В этой части мы будем его оптимизировать. Чтобы оптимизировать его - используем R-tree
+# Step 9. Optimize the Nearest. Use R-tree
+
+In the last step, we wrote our own method, which returns the nearest drivers and it works slow. In this part, we will optimize it. To optimize it, we use R-tree
 
 ## R-tree
 ![](./400px-R-tree.svg.png)
 
-R-tree выглядит как показано на картинке. Это древовидная структура данных. Она хороша для понимания, если вы знакомы с B-деревом. R-tree нужно для индексации пространственных данных(координаты, города на карте). Также она решает нашу проблему. У нее можно спросить "Дай мне 10 ближайших водителей рядом со мной". Она идеально подходит для нас.
-[Подробнее](https://ru.wikipedia.org/wiki/R-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BE_(%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85))
+R-tree looks as shown in the picture. This is a tree-like data structure. It is good for understanding if you are familiar with the B-tree. R-tree is needed for indexing of a spatial data (coordinates, cities on the map). She also solves our problem. She can ask "Give me the 10 nearest drivers next to me." It's perfect for us
+[Learn More](https://ru.wikipedia.org/wiki/R-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BE_(%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85))
 
-Мы не будем ее делать сами, потому что уже есть готовая реализация и мы возьмем ее [отсюда](https://github.com/dhconnelly/rtreego).
+We will not do it ourselves, because there is already a ready implementation and we will take it from [here](https://github.com/dhconnelly/rtreego).
 
 
-Установим ее
+We install it
 ```
 go get github.com/dhconnelly/rtreego
 ```
 
-Внедрим в наше хранилище
+Introduce it in our storehouse
 ```Go
 // DriverStorage is main storage for our project
 type DriverStorage struct {
@@ -24,12 +25,12 @@ type DriverStorage struct {
 }
 
 ```
-Ну и теперь нам нужно адаптировать все наши методы, чтобы они работали с Rtree
+Well, now we need to adapt all our methods so that they work with Rtree.
 
-Начнем с того, чтобы построить пространственный индекс, нам нужно знать границы точки. Это можно сделать, если мы сможем построить минимальный ограничивающий прямоугольник. Для чего он и что это такое, можно прочитать [тут](https://en.wikipedia.org/wiki/Minimum_bounding_rectangle)
-R-tree принимает в нашем случае Spatial интерфейс, который должен имплементировать метод `Bounds()` который как раз таки и должен возвращать прямоугольник.
+We are starting with a building a spatial index, we need to know the boundary of a point. This can be done if we can build a minimal bounding box. What is it and for what, you can read [here](https://en.wikipedia.org/wiki/Minimum_bounding_rectangle)
+R-tree takes the Spatial interface in our case, which must implement the Bounds() method, which must return a rectangle.
 
-Мы в наше хранилище будем класть экземпляры `Driver` Поэтому имплементируем ему метод `Bounds()`
+We will put instances of Driver in our repository. Therefore, we implement the Bounds() method
 
 ## Bounds()
 ```Go
@@ -81,9 +82,7 @@ func (d *DriverStorage) Delete(key int) error {
 
 
 ```
-
-Теперь нам нужно адаптировать `Nearest()` метод. Судя по [документации](https://godoc.org/github.com/dhconnelly/rtreego) есть метод `NearestNeighbors()` которому нужно передать количество элементов, которые нужно вернуть ближайшими. У этого метода также нет радиуса.
-Поэтому метод `Nearest()` будет выглядеть следующим образом
+Now we need to adapt the Nearest() method. Judging by the [ documentation](https://godoc.org/github.com/dhconnelly/rtreego), there is a method NearestNeighbors(), which needs to transfer the number of elements that need to be returned as the nearest ones. This method also does not have a radius. Therefore, the Nearest() method will look like this
 ```Go
 // Nearest returns nearest drivers by locaion
 func (d *DriverStorage) Nearest(count int, lat, lon float64) []*Driver {
@@ -99,7 +98,7 @@ func (d *DriverStorage) Nearest(count int, lat, lon float64) []*Driver {
 	return drivers
 }
 ```
-И тест на него исправится
+And the test for it will be corrected
 ```Go
 func TestNearest(t *testing.T) {
 	s := New()
@@ -122,7 +121,7 @@ func TestNearest(t *testing.T) {
 }
 ```
 
-Адаптируем и наш бенчмарк
+Let us adapt our benchmark
 ```Go
 func BenchmarkNearest(b *testing.B) {
 	s := New()
@@ -140,8 +139,7 @@ func BenchmarkNearest(b *testing.B) {
 	}
 }
 ```
-И проверим его для 100, 1000 и 10000 элементов
-100
+And check it for 100, 1000 and 10,000 elements
 ```
 BenchmarkNearest-4        200000              6649 ns/op
 PASS
@@ -161,7 +159,7 @@ PASS
 ok      github.com/maddevsio/gocodelabru/step10/storage 9.951s
 ```
 
-Ну и как видим, работать стало все быстрее.
+Well, as you can see, work has become faster.
 
-## Поздравляю!
-Вы узнали что такое R-tree и внедрили в проект. В [следующей](../step10/README.md) части мы начнем решать задачу с хранением нескольких последних координат.
+## Congratulations!
+You learned what is R-tree and implemented it into the project. In the [next](../step10/README.md) part, we begin to solve the problem with storing the last few coordinates.

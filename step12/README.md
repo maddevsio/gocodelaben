@@ -1,8 +1,9 @@
-## Шаг 12. Делаем хранилище консистентным. Внедряем LRU
+## Step 12: Make the repository consistent. Introducing the LRU
 
-Для того, чтобы хранилище было консистентным нам хватит примитива `sync/Mutex`. Это обычный лок. С его помощью мы будем блокировать наше хранилище когда мы добаляем или удаляем элементы из него.
+We have primitive `sync/Mutex`, which is enough for the repository to be consistent. This is a normal lok. We will block our storage when we add or remove elements from it with its help.
 
-Плюс нам нужно еще сделать Expire механизм. Для этого мы модифицируем структуру `Driver` и добавим туда `Expiration` Ну и для хранения последних точек мы добавим к водителю LRU.
+Plus, we still need to do the Expire mechanism. To do this, we modify the `Driver` structure and add there `Expiration`. And to store the last points, we add to the driver LRU.
+
 ```Go
 type Driver struct {
 		ID           int
@@ -11,7 +12,7 @@ type Driver struct {
 		Locations    *lru.LRU
 }
 ```
-Также сделаем метод `Expired()` для водителя, чтобы знать, нужно ли водителя удалять или нет
+Also, we'll do the `Expired()` method for the driver to know if the driver needs to be removed or not
 ```
 // Expired returns true if the item has expired.
 func (d *Driver) Expired() bool {
@@ -22,7 +23,7 @@ func (d *Driver) Expired() bool {
 }
 
 ```
-Расширяем хранилище
+Extending the storage
 ```Go
 	DriverStorage struct {
 		mu        *sync.RWMutex # для синхронизации
@@ -31,7 +32,7 @@ func (d *Driver) Expired() bool {
 		lruSize   int # для того, чтобы инициализировать хранилище по каждому водителю
 	}
 ```
-## Новый New 
+## The new one New
 ```Go
 // New initializes now storage
 func New(lruSize int) *DriverStorage {
@@ -46,9 +47,8 @@ func New(lruSize int) *DriverStorage {
 
 
 ## Set
-Этот метод у нас работает таким же образом. Мы и добавляем и обновляем данные.
-Метод этот возвращает ошибку, потому что в R-tree нет метода Update. Зато есть `Delete()` и `Insert()`.
-Поэтому перед тем как добавить элемент в БД, мы попробуем узнать есть ли он или нет. Если его нет, то мы проинициализируем LRU кеш ну и обновим все данные в итоге. Также откажемся от ключей. Они нам не нужны и мы будем только добавлять водителей. У нас же есть его ID для того, чтобы избегать дублирования
+This method works the same way for us. We add and update the data. This method returns an error, because there is no Update method in R-tree. But there is `Delete()` and `Insert()`. Therefore, before adding an element to the database, we will try to find out whether it exists or not. If it does not exist, we will initialize the LRU cache and then update all the data in the end. Also we will refuse the keys. We do not need them and we will only add drivers. We also have his ID in order to avoid duplication.
+
 ```Go
 // Set an Driver to the storage, replacing any existing item.
 func (s *DriverStorage) Set(driver *Driver)  {
@@ -74,7 +74,7 @@ func (s *DriverStorage) Set(driver *Driver)  {
 }
 ```
 ## Delete
-Метод нужен для удаления данных. Метод вернет ошибку, если мы пытаемся удалить данные, которых нет в БД
+The method is needed to delete data. The method will return an error if we try to delete data that is not in the database.
 ```Go
 // Delete deletes a driver from storage. Does nothing if the driver is not in the storage
 func (s *DriverStorage) Delete(id int) error {
@@ -94,7 +94,7 @@ func (s *DriverStorage) Delete(id int) error {
 ```
 
 ## Get
-Для получения водителя по ключу. Вернет ошибку, если данных по ключу не существует.
+To get the driver by the key. Returns an error if there is no data for the key.
 ```Go
 // Get returns driver by key
 func (s *DriverStorage) Get(id int) (*Driver, error) {
@@ -108,7 +108,7 @@ func (s *DriverStorage) Get(id int) (*Driver, error) {
 }
 ```
 
-Протестируем все методы выше
+Let us test all of the methods above
 
 ```Go
 func TestDriverStorage(t *testing.T) {
@@ -151,7 +151,7 @@ func (s *DriverStorage) Nearest(point rtreego.Point, count int) []*Driver {
 
 }
 ```
-И тест на него, который покажет, что метод работает полностью. Потому что он вернет действительно ближайших водителей и равно столько, сколько нужно. Точки взяты где-то в центре, рядом с Бишкекпарком.
+And a test for it, which will show that the method works completely, because it will return the nearest drivers really and as much as necessary. The points are taken somewhere in the city center, next to BishkekPark (shopping mall).
 ```Go
 func TestNearest(t *testing.T) {
 	s := New(10)
@@ -205,7 +205,7 @@ func TestNearest(t *testing.T) {
 ```
 
 ## DeleteExpired
-Так как мы решили сделать еще Expire механизм, то нам нужно удалять водителей, которые протухли. Реализация простая, мы просто проходим по всем элементам.
+Since we decided to do another Expire mechanism, we got a need to remove drivers that are done. The implementation is simple, we just go through all the elements.
 ```Go
 // DeleteExpired removes all expired items from storage
 func (s *DriverStorage) DeleteExpired() {
@@ -223,7 +223,7 @@ func (s *DriverStorage) DeleteExpired() {
 	}
 }
 ```
-Протестируем его.
+Let us test it.
 ```Go
 func TestExpire(t *testing.T) {
 	s := New(10)
@@ -244,5 +244,7 @@ func TestExpire(t *testing.T) {
 }
 ```
 
-## Поздравляю!
-Мы сделали консистентное хранилище данных. В [следующей](../step13/README.md) части мы его внедрим к нам в API
+## Congratulations!
+We made a consistent data store. In the [next](../step13/README.md) part, we will implement it in our API
+
+

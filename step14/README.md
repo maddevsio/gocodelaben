@@ -1,10 +1,8 @@
-# 10. Поздравляю!
+# 14. Congratulations!
 ![](https://raw.githubusercontent.com/ashleymcnamara/gophers/master/7TH_BIRTHDAY.png)
 
-На этом воркшоп закончился. Конечно, БД получилась очень простая, но я надеюсь это было для вас полезным.
-Куда дальше двигаться?
+Thus, the workshop is ended. Of course, the database turned out to be very simple, but I hope this was useful for you. Where to move further?
 
-Можно например сделать реализацию на lock-free алгоритмах, можно посмотреть на код `redis` или `memcache`.
-Надеюсь вы узнали что-то новое для себя
+For example, you can make an implementation on lock-free algorithms, you can look at the code `redis` or `memcache`. I hope you learned something new for yourself.
 
-В качестве домашнего задания - напишите тесты на эти четыре метода API. Вам поможет [этот](https://echo.labstack.com/guide/testing) гайд. Вы можете выполнить его в аудитории.
+As a homework, let you write some tests for these four API methods. This [guide](https://echo.labstack.com/guide/testing) will help you. You can perform it in the auditorium.

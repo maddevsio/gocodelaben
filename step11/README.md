@@ -1,9 +1,9 @@
-## Шаг 11. Имплементируем LRU (часть 2)
-В прошлой части мы сделали реализацию методов `New`, `Add`, `removeOldest`, `removeElement`, `Len` и написали тест на работу `Add` метода.
-В этой части мы продолжим строить  `LRU` кеш.
+## Step 11. Implement the LRU (Part 2)
+In the last part, we implemented the implementation of the methods `New`, `Add`, `removeOldest`, `removeElement`, `Len` and wrote a test for the `Add` method of work. In this part, we will continue to build the `LRU` cache.
+
 
 ## Purge
-Задача этого метода - полностью удалить все данные в хранилище. Для этого нам нужно просто пройти по всем элементам в карте и удалить их
+The task of this method is to completely delete all data in the repository. To do this, we just need to go through all the elements in the map and delete them
 ```Go
 // Purge completely clears cache
 func (l *LRU) Purge() {
@@ -16,7 +16,7 @@ func (l *LRU) Purge() {
 ```
 
 ## Get
-Get -  чтобы получить элемент по его ключу. Забирать его лучше из карты и возвращать, есть ли этот элемент в хранилище или нет
+Get is to get the item by its key. To take it better from the map and return, whether this element is in the vault or not.
 ```Go
 // Get looks up a key's value from the cache
 func (l *LRU) Get(key interface{}) (value interface{}, ok bool) {
@@ -29,7 +29,7 @@ func (l *LRU) Get(key interface{}) (value interface{}, ok bool) {
 ```
 
 ## Contains
-Для того, чтобы знать, есть ли у нас элемент в кеше или нет
+In order to know whether we have an element in the cache or not
 
 ```Go
 // Contains check if key is in cache without updating
@@ -39,7 +39,7 @@ func (l *LRU) Contains(key interface{}) (ok bool) {
 	return ok
 }
 ```
-Тест, чтобы знать, что метод работает.
+A test is for knowing that the method works.
 ```Go
 
 // Test that Contains doesn't update recent-ness
@@ -62,7 +62,7 @@ func TestLRU_Contains(t *testing.T) {
 }
 ```
 ## Remove
-Задача этого метода - полностью удалить элемент по ключу, если он существует в нашем кеше. При этом нам нужно знать, удалился элемент или нет.
+The task of this method is to remove the element completely by the key, if it exists in our cache. In this case, we need to know whether the element has retired or not.
 ```Go
 // Remove removes prodided key from the cache, returning if the
 // key was contained
@@ -77,7 +77,7 @@ func (l *LRU) Remove(key interface{}) bool {
 
 ## GetOldest и RemoveOldest
 
-Эти методы могут пригодится для того, чтобы извне получать и/или удалять самые "старые" значения в кеше
+These methods can be useful in order to get from the outside and/or delete the most "old" values in the cache
 ```Go
 // RemoveOldest removes oldest item from cache
 func (l *LRU) RemoveOldest() (interface{}, interface{}, bool) {
@@ -101,7 +101,7 @@ func (l *LRU) GetOldest() (interface{}, interface{}, bool) {
 }
 ```
 
-Плюс к этому тест
+Plus to this test
 ```Go
 func TestLRU_GetOldest_RemoveOldest(t *testing.T) {
 	l, err := New(128)
@@ -139,7 +139,7 @@ func TestLRU_GetOldest_RemoveOldest(t *testing.T) {
 
 ## Keys
 
-Этот метод нужен для того, чтобы получить все ключи в нашем кеше. Чтобы потом, например, получить по ним значение из кеша.
+This method is needed in order to get all the keys in our cache, for example, to get the value from the cache later.
 ```Go
 // Keys returns a slice of the keys in the cache
 func (l *LRU) Keys() []interface{} {
@@ -153,8 +153,8 @@ func (l *LRU) Keys() []interface{} {
 }
 ```
 
-## На этом все. 
-Мы закончили с построением кеша. Напишем тест, чтобы прогнать все возможные сценарии и удостоверится, что код работает.
+## That's all. 
+We finished with the cache build. We will write a test to run out all possible scenarios and make sure that the code works.
 
 ```Go
 func TestLRU(t *testing.T) {
@@ -206,5 +206,5 @@ func TestLRU(t *testing.T) {
 }
 ```
 
-## Поздравляю!
-Вы реализовали LRU кеш и вы уверены, что он работает. Но в нем есть проблема с тем, что он не консистентный. Данные могут в нем дублироваться. В [следующей](../step12/README.md) части мы сделаем консистентное хранилище
+## Congratulations!
+You have implemented LRU cache and you are sure that it works. But there is a problem with the fact that it is not consistent. Data can be duplicated in it. In the [next](../step12/README.md) part we will make a consistent storage
