@@ -10,18 +10,18 @@ type (
 		DriverID  int      `json:"driver_id"`
 		Location  Location `json:"location"`
 	}
-	// Структура для возврата ответа по умолчанию
+	// Structure for returning the default response
 	DefaultResponse struct {
 		Success bool   `json:"success"`
 		Message string `json:"message"`
 	}
-	// Для возврата ответа, когда мы запрашиваем водителя
+	// To return a response when we request a driver
 	DriverResponse struct {
 		Success bool   `json:"success"`
 		Message string `json:"message"`
 		Driver  int    `json:"driver"`
 	}
-	// Для возврата ближайших водителей
+	// To return the nearest drivers
 	NearestDriverResponse struct {
 		Success bool   `json:"success"`
 		Message string `json:"message"`

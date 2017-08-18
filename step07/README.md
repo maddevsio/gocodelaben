@@ -1,6 +1,6 @@
 ## Step 7. Building the Storage
 
-In this step we will do a minimal data store and solve the problem of issuing the nearest driver. In this case, we need
+In this step, we will do a minimal data store and solve the problem of issuing the nearest driver. In this case, we need
 
 1. Come up with an initial architecture
 2. Make it consistent
@@ -22,7 +22,7 @@ So let us write them in `storage/storage.go`
 
 Also, let me remind you that we need to implement the following features:
 
-1. New() - to initialize the story
+1. New() - to initialize the storage
 2. Set(key, value) - to add or update an element
 3. Delete(key) - to delete
 4. Nearest(lat, lon) - to get the nearest elements
@@ -125,7 +125,7 @@ But we also need tests to make sure that our code works. In order to write less 
 ```Go
 go get github.com/stretchr/testify/assert
 ```
-We will write a test after that
+Then, we will write a test
 ```Go
 func TestStorage(t *testing.T) {
 	s := New()
@@ -155,7 +155,8 @@ In general, there is a simple logic of the work, but we need to implement the wo
 2. Calculate the distance to the driver
 3. If the distance is less than the specified radius, then we add the results to the array.
 
-I suggest you implement this method by yourself. Skeleton of the method
+I suggest you implement this method by yourself. 
+Skeleton of the method
 
 ```Go
 // Nearest returns nearest drivers by locaion
@@ -194,7 +195,7 @@ func Distance(lat1, lon1, lat2, lon2 float64) float64 {
 }
 ```
 
-The test of the method
+Test for method
 
 ```Go
 func TestNearest(t *testing.T) {

@@ -1,4 +1,4 @@
-# Step 4. Make the HTTP API
+# Step 4. Let's make HTTP API
 
 ## addDriver
 ```Go

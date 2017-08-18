@@ -29,24 +29,24 @@ Adding data will be via HTTP API
 
 ### HTTP API Requirements
 
-1. Add the data to the repository
+1. Add the data to the storage
 2. Get information on the driver
 3. Get the nearest drivers by location
 
 ### Analysis of the problem
 
-We will solve the problem evolutionarily. In the process of implementation we will start with simple and primitive solutions that are not always effective in speed, but we will introduce certain primitives during the course, explaining them. The process will be something like this:
+We will solve the problem evolutionarily. In the process of implementation, we will start with simple and primitive solutions that are not always effective in speed, but we will introduce certain primitives during the course, explaining them. The process will be something like this:
 
 1. We solve the problem by a simple and blunt method
 2. We think how it can be optimized
 3. We study a new data structure and understand it
-4. We design a solution with a new structure
+4. We are designing a solution with a new structure
 4. Doing it
 5. Writing tests
 
 ### How to work with the project
 
-You need to clone the project for yourself.
+The project needs to clone the project for yourself.
 
 ``` 
 cd $GOPATH
@@ -59,7 +59,7 @@ cd gocodelab
 
 ## On the structure of the project
 
-Codelab is divided by several steps. Each subsequent step can contain an example of what you should get after the previous one. These are kind of checkpoints to check if everything is done correctly or not.
+Codelab is divided into several steps. Each subsequent step can contain an example of what you should get after the previous one. These are kind of checkpoints to check if everything is done correctly or not.
 
 ## Congratulations!
 
