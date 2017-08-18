@@ -5,7 +5,7 @@ In the last step, we wrote our own method, which returns the nearest drivers and
 ## R-tree
 ![](./400px-R-tree.svg.png)
 
-R-tree looks as shown in the picture. This is a tree-like data structure. It is good for understanding if you are familiar with the B-tree. R-tree is needed for indexing of a spatial data (coordinates, cities on the map). She also solves our problem. She can ask "Give me the 10 nearest drivers next to me." It's perfect for us
+R-tree looks as shown in the picture. This is a tree-like data structure. It is good for understanding if you are familiar with the B-tree. R-tree is needed for indexing spatial data (coordinates, cities on the map). She also solves our problem. She can ask "Give me the 10 nearest drivers next to me." It's perfect for us.
 [Learn More](https://ru.wikipedia.org/wiki/R-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D0%BE_(%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0_%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D1%85))
 
 We will not do it ourselves, because there is already a ready implementation and we will take it from [here](https://github.com/dhconnelly/rtreego).
@@ -16,7 +16,7 @@ We install it
 go get github.com/dhconnelly/rtreego
 ```
 
-Introduce it in our storehouse
+Introduce it in our storage
 ```Go
 // DriverStorage is main storage for our project
 type DriverStorage struct {
@@ -30,7 +30,7 @@ Well, now we need to adapt all our methods so that they work with Rtree.
 We are starting with a building a spatial index, we need to know the boundary of a point. This can be done if we can build a minimal bounding box. What is it and for what, you can read [here](https://en.wikipedia.org/wiki/Minimum_bounding_rectangle)
 R-tree takes the Spatial interface in our case, which must implement the Bounds() method, which must return a rectangle.
 
-We will put instances of Driver in our repository. Therefore, we implement the Bounds() method
+We will put instances of Driver in our storage. Therefore, we implement the Bounds() method
 
 ## Bounds()
 ```Go
