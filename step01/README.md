@@ -20,13 +20,13 @@ func TestAverage(t *testing.T) {
 }
 ```
 
-Launching the tests is going by the command `Gogo test`
+Launching the tests are going to the command `Gogo test`
 
 ```
 $ cd /usr/local/go/src/math
 $ go test
 PASS
-ok  	math	0.010s
+ok      math    0.010s
 ```
 
 If you want.  The Go community also promotes to use the so-called table tests instead of copy-paste in the tests. In this case, we have pairs of initial value and result. And we run the tests in a loop
