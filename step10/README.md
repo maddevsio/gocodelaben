@@ -1,7 +1,7 @@
 ## Step 10. Implement the LRU (Part 1)
-For making an LRU repository, first I have to tell what it is.
+For making an LRU storage, first I have to tell what it is.
 
-**LRU (least recently used)** — is a data caching algorithm that forces out values ​​that have not been requested for the longest. This mechanism is convenient because we, for example, initialize the cache for 20 elements. And as soon as we try to add the 21st, the longest unused item will be deleted.
+**LRU (least recently used)** — is a data caching algorithm that displacing out values ​​that have not been requested for the longest time. This mechanism is convenient because we, for example, initialize the cache for 20 elements. And as soon as we try to add the 21st, the longest unused item will be deleted.
 
 
 This mechanism is convenient because we implement the logic only in one place. We'll create it in the `storage/lru` package, create a new folder, create two files: `storage/lru/lru.go` and `storage/lru/lru_test.go` with a `package lru` content
@@ -52,7 +52,7 @@ type (
 ```
 
 ## New
-
+In order to create a cache, we need to transfer its size in the parameters and initialize all the storage structures. The following is obtained
 ```Go
 // New initialized a new LRU with fixed size
 func New(size int) (*LRU, error) {
@@ -84,7 +84,7 @@ func (l *LRU) Add(key, value interface{}) bool {
 }
 
 ```
-Add does two things for us: adds and updates the value by key. By using the `container/list` API, it controls the position of the item in the list. It's not enough just to delete an item if we have more items in our cache more than its size.
+Add does two things: adds and updates the value by key. In this case, using the container / list API, it manages the position of the item in the list. It's not enough just to delete an item if we items in our cache more than its size.
 
 ## Removing the least-used item
 ```Go
@@ -100,9 +100,9 @@ func (l *LRU) removeElement(e *list.Element) {
 	delete(l.items, kv.key)
 }
 ```
-According to the establishing logic, we need to remove only the last element from the list. You will need to delete it from both our list and the map.
+According to the establishment logic, we need to remove only the last element from the list. You will need to delete it from both our list and the map.
 
-Let's return to adding an element and insert the oldest element if we exceed the size of the repository. We get the following code
+Let's return to adding an element and insert the oldest element if we exceed the size of the storage. We get the following code
 
 ```Go
 // Add adds a value to the cache. Return true if eviction occured

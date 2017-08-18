@@ -1,6 +1,6 @@
 ## Step 12: Make the repository consistent. Introducing the LRU
 
-We have primitive `sync/Mutex`, which is enough for the repository to be consistent. This is a normal lok. We will block our storage when we add or remove elements from it with its help.
+We have primitive sync/Mutex, which is enough for the storage to be consistent. This is a normal lok. We will block our storage when we add or remove elements from it with its help.
 
 Plus, we still need to do the Expire mechanism. To do this, we modify the `Driver` structure and add there `Expiration`. And to store the last points, we add to the driver LRU.
 
@@ -26,10 +26,10 @@ func (d *Driver) Expired() bool {
 Extending the storage
 ```Go
 	DriverStorage struct {
-		mu        *sync.RWMutex # для синхронизации
+		mu        *sync.RWMutex # To sync
 		drivers   map[int]*Driver
 		locations *rtreego.Rtree
-		lruSize   int # для того, чтобы инициализировать хранилище по каждому водителю
+		lruSize   int # In order to initialize the storage for each driver
 	}
 ```
 ## The new one New

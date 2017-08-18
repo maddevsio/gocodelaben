@@ -3,7 +3,7 @@ In the last part, we implemented the implementation of the methods `New`, `Add`,
 
 
 ## Purge
-The task of this method is to completely delete all data in the repository. To do this, we just need to go through all the elements in the map and delete them
+The task of this method is to completely delete all data in the storage. To do this, we just need to go through all the elements in the map and delete them
 ```Go
 // Purge completely clears cache
 func (l *LRU) Purge() {
@@ -16,7 +16,7 @@ func (l *LRU) Purge() {
 ```
 
 ## Get
-Get is to get the item by its key. To take it better from the map and return, whether this element is in the vault or not.
+Get is to get the item by its key. To take it better from the map and return, whether this element is in the storage or not.
 ```Go
 // Get looks up a key's value from the cache
 func (l *LRU) Get(key interface{}) (value interface{}, ok bool) {

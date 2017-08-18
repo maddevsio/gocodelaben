@@ -1,4 +1,4 @@
-# Step 13: Implement the repository in the API
+# Step 13: Implement the storage in the API
 We got this kind of structure right now. We need `sync.WaitGroup` in order to synchronize several goroutines, which we will launch later.
 
 
@@ -46,7 +46,7 @@ func (a *API) removeExpired() {
 This method will block our main thread. You can try calling it and launch a web-server, for example. In this case, the web-server will not start. Here, `sync.WaitGroup` also comes to us on a gain
 
 ## Start
-In this method, we simply launch the web-server and remove the rotten drivers in two goroutines. We lock the main thread using the `WaitStop()` method
+In this method, we simply launch the web-server and remove the drivers, who had already done in two goroutines. We lock the main thread using the `WaitStop()`method
 
 
 ```Go

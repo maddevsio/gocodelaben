@@ -18,24 +18,24 @@ func BenchmarkNearest(b *testing.B) {
 	}
 }
 ```
-We'll check the work on 100, 1000, 10,000 elements in the repository
+We'll check the work on 100, 1000, 10,000 elements in the storage
 ```Go
 cd storage
 go test -bench=.
 ```
-For 100 items
+For 100 elements
 ```
 BenchmarkNearest-4         50000             24002 ns/op
 PASS
 ok      github.com/maddevsio/gocodelabru/step09/storage 1.460s
 ```
-For 1000 items
+For 1000 elements
 ```Go
 BenchmarkNearest-4          5000            272552 ns/op
 PASS
 ok      github.com/maddevsio/gocodelabru/step09/storage 1.402s
 ```
-For 10000 items
+For 10000 elements
 ```Go
 BenchmarkNearest-4           500           2799431 ns/op
 PASS
