@@ -75,18 +75,18 @@ type (
 We use the following to return the answers
 ```Go
 type (
-	// Структура для возврата ответа по умолчанию
+	// DefaultResponse used for returning default response
 	DefaultResponse struct {
 		Success bool   `json:"success"`
 		Message string `json:"message"`
 	}
-	// Для возврата ответа, когда мы запрашиваем водителя
+	// DriverResponse returns driver
 	DriverResponse struct {
 		Success bool            `json:"success"`
 		Message string          `json:"message"`
 		Driver  int `json:"driver"`
 	}
-	// Для возврата ближайших водителей
+	// NearestDriverResponse returns nearest drivers
 	NearestDriverResponse struct {
 		Success bool              `json:"success"`
 		Message string            `json:"message"`
