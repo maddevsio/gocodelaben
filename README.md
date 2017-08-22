@@ -34,7 +34,7 @@ By Go you will get the following knowledge:
 
 # Table of contents
 
-Этот воркшоп разделен на несколько частей.
+The workshop contains these steps
 
 * [Step 0. Setting of the problem](step00/README.md)
 * [Step 1. What you need to know about testing and writing tests in Go.](step01/README.md)
@@ -72,13 +72,13 @@ One of the most remarkable qualities of Go is its community.
 2. [gophers.slack.com](gophers.slack.com) - The English-speaking community of gophers. Invitation to get here [https://invite.slack.golangbridge.org/](https://invite.slack.golangbridge.org/)
 
 
-### Подкасты
+### Podcasts
 
 1. [GolangShow](https://golangshow.com) - Russian-language podcast about Go-language
 2. [Gotime](http://gotime.fm) - English-language podcast about Go-language
 
 ### Остальное
-- [Go Форум](https://forum.golangbridge.org/)
+- [Go Forum](https://forum.golangbridge.org/)
 - [@golang](https://twitter.com/golang) and [#golang](https://twitter.com/search?q=%23golang) on Twitter.
 - [Go+ community](https://plus.google.com/u/1/communities/114112804251407510571) on Google Plus.
 
