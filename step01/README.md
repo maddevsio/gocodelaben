@@ -72,5 +72,5 @@ That is, the [testify/assert](https://godoc.org/github.com/stretchr/testify/asse
  package
 
 ## Congratulations!
-You now know how to test in Go and by which tools. We will write tests in our project. There is no sense without them. Continuation in the [next](../step02/README.md)part
+You now know how to test in Go and by which tools. We will write tests in our project. There is no sense without them. Continuation in the [next](../step02/README.md) part
 
